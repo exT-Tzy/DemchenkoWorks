@@ -2,11 +2,11 @@
 
 #define N 11
 
-void oddPosytionsCopy(int const* src, int* dist) {
+void oddPosytionsCopy(int const* src, int* dest) {
 	int i;
 
 	for (i = 0; i < N; i += 2) {
-		*dist++ = src[i];
+		*dest++ = src[i];
 	}
 }
 

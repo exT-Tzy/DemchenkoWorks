@@ -2,12 +2,12 @@
 
 #define N 10
 
-int evenValuesCpy(const int *src, int *dist) {
+int evenValuesCpy(const int *src, int *dest) {
 	int c = 0, i;
 
 	for (i = 0; i < N; i++) {
 		if (src[i] % 2 == 0) {
-			*dist++ = src[i];
+			*dest++ = src[i];
 			c++;
 		}
 	}
