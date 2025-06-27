@@ -1,0 +1,45 @@
+Passenger ID: 1
+Appearance time: 00:01
+Source floor: 1
+Target floor: 5
+Boarding time: 00:14
+Total travel time: 27 seconds
+Companions: 2 
+Ejected due to overweight: No
+
+Passenger ID: 2
+Appearance time: 00:01
+Source floor: 2
+Target floor: 1
+Boarding time: 00:04
+Total travel time: 15 seconds
+Companions: 
+Ejected due to overweight: No
+
+Passenger ID: 3
+Appearance time: 00:03
+Source floor: 3
+Target floor: 1
+Boarding time: 00:09
+Total travel time: 57 seconds
+Companions: 
+Ejected due to overweight: No
+
+Passenger ID: 4
+Appearance time: 00:05
+Source floor: 9
+Target floor: 3
+Boarding time: 00:29
+Total travel time: 35 seconds
+Companions: 
+Ejected due to overweight: No
+
+Passenger ID: 5
+Appearance time: 00:15
+Source floor: 4
+Target floor: 6
+Boarding time: 00:19
+Total travel time: 21 seconds
+Companions: 3 
+Ejected due to overweight: No
+
