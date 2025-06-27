@@ -1,7 +1,8 @@
-#ifndef COURSE1_CPP_RGU_LOGGER_H
-#define COURSE1_CPP_RGU_LOGGER_H
+#ifndef LOGGER_H
+#define LOGGER_H
 
 #include <iostream>
+#include <chrono>
 
 class logger
 {
@@ -53,8 +54,11 @@ protected:
     static std::string severity_to_string(
         logger::severity severity);
 
-    static std::string current_datetime_to_string() noexcept;
+    static std::string get_time(
+        const std::chrono::system_clock::time_point& time_point);
 
+    static std::string get_date(
+        const std::chrono::system_clock::time_point& time_point);
 };
 
-#endif //COURSE1_CPP_RGU_LOGGER_H
+#endif //LOGGER_H

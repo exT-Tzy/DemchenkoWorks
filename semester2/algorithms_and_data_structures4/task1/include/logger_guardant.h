@@ -1,5 +1,5 @@
-#ifndef COURSE1_CPP_RGU_LOGGER_GUARDANT_H
-#define COURSE1_CPP_RGU_LOGGER_GUARDANT_H
+#ifndef LOGGER_GUARDANT_H
+#define LOGGER_GUARDANT_H
 
 #include "logger.h"
 
@@ -40,4 +40,4 @@ protected:
 
 };
 
-#endif //COURSE1_CPP_RGU_LOGGER_GUARDANT_H
+#endif //LOGGER_GUARDANT_H

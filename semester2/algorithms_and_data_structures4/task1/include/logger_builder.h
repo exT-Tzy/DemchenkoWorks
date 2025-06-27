@@ -1,5 +1,5 @@
-#ifndef COURSE1_CPP_RGU_LOGGER_BUILDER_H
-#define COURSE1_CPP_RGU_LOGGER_BUILDER_H
+#ifndef LOGGER_BUILDER_H
+#define LOGGER_BUILDER_H
 
 #include "logger.h"
 
@@ -34,4 +34,4 @@ protected:
 
 };
 
-#endif //COURSE1_CPP_RGU_LOGGER_BUILDER_H
+#endif //LOGGER_BUILDER_H
