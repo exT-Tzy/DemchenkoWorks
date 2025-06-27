@@ -5,6 +5,8 @@
 #include <cassert>
 
 #include "allocator_sorted_list.h"
+#include "logger.h"
+#include "client_logger_builder.h"
 
 int random_int(
     int min, 
@@ -20,7 +22,12 @@ int random_int(
 
 int main() 
 {
-    allocator_sorted_list alloc(1024 * 1024, nullptr, allocator_with_fit_mode::fit_mode::first_fit);
+    logger* log = client_logger_builder()
+        .add_file_stream("logs.log", logger::severity::debug)
+        ->add_file_stream("logs.log", logger::severity::warning)
+        ->build();
+
+    allocator_sorted_list alloc(1024 * 1024, nullptr, log, allocator_with_fit_mode::fit_mode::first_fit);
 
     std::vector<std::pair<void*, size_t>> allocated_blocks;
 

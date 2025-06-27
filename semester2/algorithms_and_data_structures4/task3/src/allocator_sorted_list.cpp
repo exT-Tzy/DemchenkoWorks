@@ -1,8 +1,12 @@
 #include "allocator_sorted_list.h"
 #include "not_implemented.h"
+#include "logger_guardant.h"
 
 allocator_sorted_list::~allocator_sorted_list()
 {
+    get_logger()
+        ->debug("Called allocator_sorted_list::~allocator_sorted_list.");
+
     deallocate_with_guard(_trusted_memory);
 }
 
@@ -10,12 +14,18 @@ allocator_sorted_list::allocator_sorted_list(
     allocator_sorted_list&& other) noexcept :
     _trusted_memory(other._trusted_memory)
 {
+    get_logger()
+        ->debug("Called allocator_sorted_list::allocator_sorted_list.");
+
     other._trusted_memory = nullptr;
 }
 
 allocator_sorted_list& allocator_sorted_list::operator=(
     allocator_sorted_list&& other) noexcept
 {
+    get_logger()
+        ->debug("Called allocator_sorted_list::operator=.");
+
     if (this == &other)
     {
         return *this;
@@ -31,9 +41,12 @@ allocator_sorted_list& allocator_sorted_list::operator=(
 allocator_sorted_list::allocator_sorted_list(
     size_t space_size,
     allocator* parent_allocator,
-    //logger *logger,
+    logger *logger,
     allocator_with_fit_mode::fit_mode allocate_fit_mode)
 {
+    logger
+        ->debug("Called allocator_sorted_list::allocator_sorted_list.");
+
     auto const target_size = get_metadata_size() + space_size;
 
     try
@@ -44,14 +57,17 @@ allocator_sorted_list::allocator_sorted_list(
     }
     catch (std::bad_alloc const& ex)
     {
-        // TODO: logs
+        logger
+            ->warning("Catched bad_alloc exception in allocator_sorted_list::allocator_sorted_list.");
+
         throw;
     }
 
     get_memory_size() = space_size;
     get_parent_allocator() = parent_allocator;
+    get_logger() = logger;
     get_fit_mode() = allocate_fit_mode;
-    // new (get_sync_object_ptr()) std::mutex;
+
     allocator::construct(get_sync_object_ptr());
     get_first_block_address() = &get_first_block_address() + 1;
 
@@ -63,6 +79,9 @@ allocator_sorted_list::allocator_sorted_list(
     size_t value_size,
     size_t values_count)
 {
+    get_logger()
+        ->debug("Called allocator_sorted_list::allocate.");
+
     std::lock_guard<std::mutex> guard(get_sync_object());
 
     auto requested_size = value_size * values_count;
@@ -100,7 +119,9 @@ allocator_sorted_list::allocator_sorted_list(
 
     if (target_current_block == nullptr)
     {
-        // TODO: logs
+        get_logger()
+            ->error("target_current_block is nulptr!");
+
         throw std::bad_alloc();
     }
 
@@ -110,8 +131,6 @@ allocator_sorted_list::allocator_sorted_list(
     if (block_remaining < get_available_block_meta_size())
     {
         requested_size += block_remaining;
-        // requested_size = get_block_size(target_current_block);
-        // TODO: logs
 
         (target_previous_block == nullptr
             ? get_first_block_address()
@@ -139,6 +158,9 @@ allocator_sorted_list::allocator_sorted_list(
 void allocator_sorted_list::deallocate(
     void* at)
 {
+    get_logger()
+        ->debug("Called allocator_sorted_list::deallocate.");
+
     std::lock_guard<std::mutex> guard(get_sync_object());
 
     auto left_bound = reinterpret_cast<void*>(reinterpret_cast<unsigned char*>(_trusted_memory) + get_metadata_size() + get_ancillary_block_meta_size());
@@ -187,6 +209,9 @@ void allocator_sorted_list::deallocate(
 inline void allocator_sorted_list::set_fit_mode(
     allocator_with_fit_mode::fit_mode mode)
 {
+    get_logger()
+        ->debug("Called allocator_sorted_list::set_fit_mode.");
+
     get_fit_mode() = mode;
 }
 
@@ -210,9 +235,14 @@ inline allocator*& allocator_sorted_list::get_parent_allocator() const
     return *reinterpret_cast<allocator**>(&get_memory_size() + 1);
 }
 
+inline logger*& allocator_sorted_list::get_logger() const
+{
+    return *reinterpret_cast<logger**>(&get_parent_allocator() + 1);
+}
+
 inline allocator_with_fit_mode::fit_mode& allocator_sorted_list::get_fit_mode() const
 {
-    return *reinterpret_cast<allocator_with_fit_mode::fit_mode*>(&get_parent_allocator() + 1);
+    return *reinterpret_cast<allocator_with_fit_mode::fit_mode*>(&get_logger() + 1);
 }
 
 inline std::mutex* allocator_sorted_list::get_sync_object_ptr() const
