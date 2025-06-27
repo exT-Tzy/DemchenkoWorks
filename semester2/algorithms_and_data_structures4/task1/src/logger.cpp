@@ -1,5 +1,9 @@
 #include "logger.h"
+
 #include <iomanip>
+#include <sstream>
+#include <format>
+#include <chrono>
 
 logger const* logger::trace(
     std::string const& message) const noexcept
@@ -59,12 +63,14 @@ std::string logger::severity_to_string(
     throw std::out_of_range("Invalid severity value");
 }
 
-std::string logger::current_datetime_to_string() noexcept
+std::string logger::get_date(
+    const std::chrono::system_clock::time_point& time_point)
 {
-    auto time = std::time(nullptr);
+    return std::format("{:%Y-%m-%d}", std::chrono::zoned_time(std::chrono::current_zone(), time_point));
+}
 
-    std::ostringstream result_stream;
-    result_stream << std::put_time(std::localtime(&time), "%d.%m.%Y %H:%M:%S");
-
-    return result_stream.str();
+std::string logger::get_time(
+    const std::chrono::system_clock::time_point& time_point)
+{
+    return std::format("{:%H:%M:%S}", std::chrono::zoned_time(std::chrono::current_zone(), time_point));
 }
