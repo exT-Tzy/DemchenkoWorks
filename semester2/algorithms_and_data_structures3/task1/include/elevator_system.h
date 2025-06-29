@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <climits>
+#include <set>
 
 class elevator_system :
     public observer
@@ -29,6 +30,12 @@ private:
 
     int _current_time;
 
+    std::vector<std::set<int>> _attempted_elevators_per_floor; 
+   
+    std::vector<int> _floor_attempt_count; 
+   
+    static const int MAX_ATTEMPTS_PER_FLOOR = 3; 
+
     std::string format_time(
         int seconds);
 
@@ -42,6 +49,21 @@ private:
     void call_elevator_for_specific_passenger(
         int floor,
         passenger* passenger);
+
+    void force_call_elevator(
+        int floor);
+
+    bool should_try_elevator(
+        int elevatorId, int floor);
+   
+    void mark_elevator_attempted(
+        int elevatorId, int floor);
+ 
+    void reset_floor_attempts(
+        int floor);
+   
+    int find_capable_elevator(
+        const std::vector<passenger*>& passengers, int floor);
 
 public:
 

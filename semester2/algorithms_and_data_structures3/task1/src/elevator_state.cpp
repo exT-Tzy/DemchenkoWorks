@@ -58,31 +58,39 @@ std::string moving_up_state::get_name() const
 }
 
 void moving_up_state::handle(
-    elevator* elevator, 
-    int currentTime) 
+    elevator* elevator,
+    int currentTime)
 {
-    if (currentTime >= elevator->get_next_move_time()) 
+    if (currentTime >= elevator->get_next_move_time())
     {
-        elevator->set_current_floor(elevator->get_current_floor() + 1);
+        int next_floor = elevator->get_current_floor() + 1;
+
+        if (next_floor >= elevator->_floor_buttons.size())
+        {
+            elevator->set_state(new idle_closed_state());
+            return;
+        }
+
+        elevator->set_current_floor(next_floor);
         elevator->_floors_traveled++;
 
-        if (elevator->_floor_buttons[elevator->get_current_floor()]) 
+        if (elevator->_floor_buttons[elevator->get_current_floor()])
         {
             elevator->set_state(new idle_open_state());
             elevator->set_door_open_time(currentTime + 5);
             elevator->release_floor_button(elevator->get_current_floor());
             elevator->notify_observers("stopped", elevator->get_id(), elevator->get_current_floor(), currentTime);
         }
-        else if (elevator->has_destination()) 
+        else if (elevator->has_destination())
         {
             elevator->set_next_move_time(currentTime + elevator->get_movement_time());
         }
-        else 
+        else
         {
             elevator->set_state(new idle_closed_state());
         }
     }
-    else 
+    else
     {
         elevator->_travel_time++;
     }
@@ -94,12 +102,20 @@ std::string moving_down_state::get_name() const
 }
 
 void moving_down_state::handle(
-    elevator* elevator, 
+    elevator* elevator,
     int currentTime)
 {
-    if (currentTime >= elevator->get_next_move_time()) 
+    if (currentTime >= elevator->get_next_move_time())
     {
-        elevator->set_current_floor(elevator->get_current_floor() - 1);
+        int next_floor = elevator->get_current_floor() - 1;
+
+        if (next_floor < 1)
+        {
+            elevator->set_state(new idle_closed_state());
+            return;
+        }
+
+        elevator->set_current_floor(next_floor);
         elevator->_floors_traveled++;
 
         if (elevator->_floor_buttons[elevator->get_current_floor()])
@@ -109,16 +125,16 @@ void moving_down_state::handle(
             elevator->release_floor_button(elevator->get_current_floor());
             elevator->notify_observers("stopped", elevator->get_id(), elevator->get_current_floor(), currentTime);
         }
-        else if (elevator->has_destination()) 
+        else if (elevator->has_destination())
         {
             elevator->set_next_move_time(currentTime + elevator->get_movement_time());
         }
-        else 
+        else
         {
             elevator->set_state(new idle_closed_state());
         }
     }
-    else 
+    else
     {
         elevator->_travel_time++;
     }
