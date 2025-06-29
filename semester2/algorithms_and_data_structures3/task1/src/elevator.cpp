@@ -117,37 +117,42 @@ bool elevator::has_destination() const
     return false;
 }
 
-int elevator::get_next_destination() const 
+int elevator::get_next_destination() const
 {
-    if (dynamic_cast<moving_up_state*>(_current_state) ||
-        dynamic_cast<idle_closed_state*>(_current_state)) 
+    if (_floor_buttons[_current_floor])
     {
-        for (int i = _current_floor + 1; i < _floor_buttons.size(); i++) 
+        return _current_floor;
+    }
+
+    if (dynamic_cast<moving_up_state*>(_current_state) ||
+        dynamic_cast<idle_closed_state*>(_current_state))
+    {
+        for (int i = _current_floor + 1; i < _floor_buttons.size(); i++)
         {
-            if (_floor_buttons[i]) 
+            if (_floor_buttons[i])
             {
                 return i;
             }
         }
 
-        for (int i = _current_floor - 1; i >= 1; i--) 
+        for (int i = _current_floor - 1; i >= 1; i--)
         {
             if (_floor_buttons[i]) return i;
         }
     }
-    else 
+    else
     {
-        for (int i = _current_floor - 1; i >= 1; i--) 
+        for (int i = _current_floor - 1; i >= 1; i--)
         {
             if (_floor_buttons[i]) return i;
         }
 
-        for (int i = _current_floor + 1; i < _floor_buttons.size(); i++) 
+        for (int i = _current_floor + 1; i < _floor_buttons.size(); i++)
         {
             if (_floor_buttons[i]) return i;
         }
     }
-   
+
     return -1;
 }
 

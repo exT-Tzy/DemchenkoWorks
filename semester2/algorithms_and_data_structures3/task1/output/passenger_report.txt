@@ -2,44 +2,142 @@ Passenger ID: 1
 Appearance time: 00:01
 Source floor: 1
 Target floor: 5
-Boarding time: 00:14
-Total travel time: 27 seconds
-Companions: 2 
+Weight: 120 kg
+Boarding time: 00:01
+Total travel time: 43 seconds
+Companions: 2 5 3 
 Ejected due to overweight: No
+Reached destination: Yes
 
 Passenger ID: 2
-Appearance time: 00:01
-Source floor: 2
-Target floor: 1
-Boarding time: 00:04
-Total travel time: 15 seconds
-Companions: 
-Ejected due to overweight: No
+Appearance time: 00:04
+Source floor: 1
+Target floor: 34
+Weight: 120 kg
+Boarding time: 00:07
+Total travel time: 318 seconds
+Companions: 6 10 12 
+Ejected due to overweight: Yes
+Reached destination: Yes
 
 Passenger ID: 3
-Appearance time: 00:03
-Source floor: 3
-Target floor: 1
-Boarding time: 00:09
-Total travel time: 57 seconds
-Companions: 
-Ejected due to overweight: No
+Appearance time: 00:06
+Source floor: 5
+Target floor: 21
+Weight: 120 kg
+Boarding time: 00:39
+Total travel time: 157 seconds
+Companions: 2 5 4 6 8 7 
+Ejected due to overweight: Yes
+Reached destination: Yes
 
 Passenger ID: 4
-Appearance time: 00:05
-Source floor: 9
-Target floor: 3
-Boarding time: 00:29
-Total travel time: 35 seconds
-Companions: 
-Ejected due to overweight: No
+Appearance time: 00:08
+Source floor: 6
+Target floor: 24
+Weight: 120 kg
+Boarding time: 00:50
+Total travel time: 180 seconds
+Companions: 2 5 6 8 7 10 12 
+Ejected due to overweight: Yes
+Reached destination: Yes
 
 Passenger ID: 5
-Appearance time: 00:15
+Appearance time: 00:10
 Source floor: 4
-Target floor: 6
-Boarding time: 00:19
-Total travel time: 21 seconds
-Companions: 3 
-Ejected due to overweight: No
+Target floor: 28
+Weight: 120 kg
+Boarding time: 00:28
+Total travel time: 240 seconds
+Companions: 2 6 8 7 10 12 
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 6
+Appearance time: 00:12
+Source floor: 7
+Target floor: 2
+Weight: 120 kg
+Boarding time: 01:02
+Total travel time: 549 seconds
+Companions: None
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 7
+Appearance time: 00:15
+Source floor: 12
+Target floor: 31
+Weight: 120 kg
+Boarding time: 01:53
+Total travel time: 182 seconds
+Companions: 2 6 8 10 12 
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 8
+Appearance time: 00:18
+Source floor: 10
+Target floor: 33
+Weight: 120 kg
+Boarding time: 01:26
+Total travel time: 227 seconds
+Companions: 2 6 10 12 
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 9
+Appearance time: 00:22
+Source floor: 41
+Target floor: 34
+Weight: 120 kg
+Boarding time: 06:01
+Total travel time: 88 seconds
+Companions: 6 12 11 
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 10
+Appearance time: 00:24
+Source floor: 23
+Target floor: 42
+Weight: 120 kg
+Boarding time: 03:31
+Total travel time: 167 seconds
+Companions: 6 12 12 9 
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 11
+Appearance time: 00:28
+Source floor: 43
+Target floor: 18
+Weight: 120 kg
+Boarding time: 06:24
+Total travel time: 157 seconds
+Companions: 6 
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 12
+Appearance time: 00:30
+Source floor: 23
+Target floor: 20
+Weight: 120 kg
+Boarding time: 03:31
+Total travel time: 314 seconds
+Companions: 6 11 
+Ejected due to overweight: Yes
+Reached destination: Yes
+
+Passenger ID: 13
+Appearance time: 00:35
+Source floor: 11
+Target floor: 12
+Weight: 120 kg
+Boarding time: 01:39
+Total travel time: 19 seconds
+Companions: 2 5 3 4 6 8 7 
+Ejected due to overweight: Yes
+Reached destination: Yes
 

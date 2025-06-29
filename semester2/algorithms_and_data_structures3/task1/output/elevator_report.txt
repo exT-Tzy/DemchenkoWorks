@@ -1,24 +1,90 @@
 Elevator ID: 0
-Idle time: 26 seconds
-Travel time: 17 seconds
-Floors traveled: 6
-Total cargo weight: 180.00 kg
-Maximum load achieved: 180.00 kg
+Max capacity: 1000 kg
+Idle time: 1 seconds
+Travel time: 390 seconds
+Floors traveled: 83
+Total cargo weight: 1560.00 kg
+Maximum load achieved: 960.00 kg
 Overload count: 0
 
 Elevator ID: 1
-Idle time: 3 seconds
-Travel time: 30 seconds
-Floors traveled: 10
-Total cargo weight: 180.00 kg
-Maximum load achieved: 180.00 kg
+Max capacity: 100 kg
+Idle time: 456 seconds
+Travel time: 80 seconds
+Floors traveled: 40
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
 Overload count: 0
 
 Elevator ID: 2
-Idle time: 7 seconds
-Travel time: 34 seconds
-Floors traveled: 14
-Total cargo weight: 90.00 kg
-Maximum load achieved: 90.00 kg
+Max capacity: 100 kg
+Idle time: 570 seconds
+Travel time: 20 seconds
+Floors traveled: 10
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
+Overload count: 0
+
+Elevator ID: 3
+Max capacity: 100 kg
+Idle time: 573 seconds
+Travel time: 22 seconds
+Floors traveled: 11
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
+Overload count: 0
+
+Elevator ID: 4
+Max capacity: 100 kg
+Idle time: 579 seconds
+Travel time: 18 seconds
+Floors traveled: 9
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
+Overload count: 0
+
+Elevator ID: 5
+Max capacity: 100 kg
+Idle time: 480 seconds
+Travel time: 84 seconds
+Floors traveled: 42
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
+Overload count: 0
+
+Elevator ID: 6
+Max capacity: 100 kg
+Idle time: 612 seconds
+Travel time: 0 seconds
+Floors traveled: 0
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
+Overload count: 0
+
+Elevator ID: 7
+Max capacity: 100 kg
+Idle time: 612 seconds
+Travel time: 0 seconds
+Floors traveled: 0
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
+Overload count: 0
+
+Elevator ID: 8
+Max capacity: 100 kg
+Idle time: 612 seconds
+Travel time: 0 seconds
+Floors traveled: 0
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
+Overload count: 0
+
+Elevator ID: 9
+Max capacity: 100 kg
+Idle time: 612 seconds
+Travel time: 0 seconds
+Floors traveled: 0
+Total cargo weight: 0.00 kg
+Maximum load achieved: 0.00 kg
 Overload count: 0
 

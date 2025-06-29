@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 
 #include "elevator_system.h"
 #include "utils.h"
@@ -7,6 +8,8 @@ int main(
     int argc, 
     char* argv[]) 
 {
+    system("color a");
+
     if (argc < 3)
     {
         std::cout << "Usage: " << argv[0] << " <config_file> <passenger_file1> [passenger_file2] ..." << std::endl;
