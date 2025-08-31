@@ -28,17 +28,6 @@ private:
 
 private:
 
-	static const bolshaya_drob& Bernoulli_number(
-		size_t n);
-
-	static bolshaya_drob binomial(
-		size_t n,
-		size_t k);
-
-	static bolshaya_drob reduce_argument(
-		bolshaya_drob const& number,
-		bolshaya_drob const& EPS);
-
 	static boost::multiprecision::int1024_t gcd(
 		boost::multiprecision::int1024_t a,
 		boost::multiprecision::int1024_t b);
@@ -46,9 +35,6 @@ private:
 public:
 
 	static const bolshaya_drob DEFAULT_EPS;
-
-	static void calculate_Bernoulli_number_up_to(
-		size_t n);
 
 public:
 
@@ -129,61 +115,13 @@ public:
 		size_t precision = 10) const;
 
 public:
-	
-	static bolshaya_drob PI(
-		const bolshaya_drob& EPS = DEFAULT_EPS);
-
-	friend bolshaya_drob sin(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob cos(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob tg(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob ctg(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob sec(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob cosec(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob arcsin(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob arccos(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob arctg(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob arcctg(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob arcsec(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-	friend bolshaya_drob arccosec(bolshaya_drob const& number, bolshaya_drob const& EPS);
-
-public:
 
 	friend bolshaya_drob pow(
 		bolshaya_drob const& base,
 		boost::multiprecision::int1024_t const& exp);
 
-	friend bolshaya_drob radical(
-		bolshaya_drob const& radicand,
-		boost::multiprecision::int1024_t const& index,
-		bolshaya_drob const& EPS);
-
 	friend bolshaya_drob sqrt(
 		bolshaya_drob const& radicand,
-		boost::multiprecision::int1024_t const& EPS);
-
-public:
-
-	friend bolshaya_drob log2(
-		bolshaya_drob const& number,
-		bolshaya_drob const& EPS);
-
-	friend bolshaya_drob log(
-		bolshaya_drob const& number,
-		bolshaya_drob const& EPS);
-
-	friend bolshaya_drob log10(
-		bolshaya_drob const& bumber,
 		bolshaya_drob const& EPS);
 
 public:

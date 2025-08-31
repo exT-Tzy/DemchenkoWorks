@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\pagestyle{empty}
+\begin{document}
+
+\section*{Scalar Product of Vectors in n-dimensional Space}
+\textbf{Given:}
+$\vec{a} = \begin{pmatrix}1.000000 \\ 2.000000 \\ 3.000000 \\ 4.000000\end{pmatrix}$
+$\vec{b} = \begin{pmatrix}5.000000 \\ 6.000000 \\ 7.000000 \\ 8.000000\end{pmatrix}$
+
+\textbf{Find:} $\vec{a} \cdot \vec{b}$
+
+\textbf{Solution:}
+The scalar product of vectors in n-dimensional space is calculated using the formula:
+\[
+\vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_i \cdot b_i
+\]
+
+Substituting the component values:
+\begin{align*}
+a_{1} \cdot b_{1} &= 1.000000 \cdot 5.000000 = 5.000000 \\
+a_{2} \cdot b_{2} &= 2.000000 \cdot 6.000000 = 12.000000 \\
+a_{3} \cdot b_{3} &= 3.000000 \cdot 7.000000 = 21.000000 \\
+a_{4} \cdot b_{4} &= 4.000000 \cdot 8.000000 = 32.000000 \\
+\end{align*}
+
+Summing all products:
+\[
+\vec{a} \cdot \vec{b} = 70.0000000000
+\]
+
+\textbf{Answer:} $\vec{a} \cdot \vec{b} = 70.0000000000$
+\newpage
+
+\section*{Cross Product in 3D Space}
+\textbf{Given:}
+$\vec{a} = \begin{pmatrix}1.000000 \\ 2.000000 \\ 3.000000\end{pmatrix}$
+$\vec{b} = \begin{pmatrix}4.000000 \\ 5.000000 \\ 6.000000\end{pmatrix}$
+
+\textbf{Find:} $\vec{a} \times \vec{b}$
+
+\textbf{Solution:}
+Cross product in 3D space is calculated using the determinant:
+\[
+\vec{a} \times \vec{b} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \end{vmatrix}
+\]
+
+Substituting values:
+\[
+\vec{a} \times \vec{b} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 1.000000 & 2.000000 & 3.000000 \\ 4.000000 & 5.000000 & 6.000000 \end{vmatrix}
+\]
+
+Computing components:
+\begin{align*}
+(\vec{a} \times \vec{b})_1 &= a_2 \cdot b_3 - a_3 \cdot b_2 = 2.000000 \cdot 6.000000 - 3.000000 \cdot 5.000000 = -3.000000 \\
+(\vec{a} \times \vec{b})_2 &= a_3 \cdot b_1 - a_1 \cdot b_3 = 3.000000 \cdot 4.000000 - 1.000000 \cdot 6.000000 = 6.000000 \\
+(\vec{a} \times \vec{b})_3 &= a_1 \cdot b_2 - a_2 \cdot b_1 = 1.000000 \cdot 5.000000 - 2.000000 \cdot 4.000000 = -3.000000 \\
+\end{align*}
+
+\textbf{Answer:} $\vec{a} \times \vec{b} = \begin{pmatrix}-3.000000 \\ 6.000000 \\ -3.000000\end{pmatrix}$
+\newpage
+
+\section*{Vector Magnitude}
+\textbf{Given:}
+$\vec{a} = \begin{pmatrix}3.000000 \\ 4.000000 \\ 0.000000\end{pmatrix}$
+
+\textbf{Find:} $|\vec{a}|$
+
+\textbf{Solution:}
+Vector magnitude is calculated using the formula:
+\[
+|\vec{a}| = \sqrt{a_1^2 + a_2^2 + \ldots + a_n^2}
+\]
+
+Computing the sum of squares of components:
+\begin{align*}
+a_{1}^2 &= (3.000000)^2 = 9.000000 \\
+a_{2}^2 &= (4.000000)^2 = 16.000000 \\
+a_{3}^2 &= (0.000000)^2 = 0.000000 \\
+\sum &= 25.0000000000 \\
+\end{align*}
+
+Taking the square root:
+\[
+|\vec{a}| = \sqrt{25.0000000000} = 5.0000000000
+\]
+
+\textbf{Answer:} $|\vec{a}| = 5.0000000000$
+\newpage
+
+\section*{Gram-Schmidt Orthogonalization Process}
+\textbf{Given set of vectors:}
+$\vec{v}_{1} = \begin{pmatrix}1.000000 \\ 0.000000 \\ 1.000000\end{pmatrix}$
+$\vec{v}_{2} = \begin{pmatrix}1.000000 \\ 1.000000 \\ 0.000000\end{pmatrix}$
+$\vec{v}_{3} = \begin{pmatrix}0.000000 \\ 1.000000 \\ 1.000000\end{pmatrix}$
+
+\textbf{Find:} orthogonal system of vectors
+
+\textbf{Solution:}
+Apply the Gram-Schmidt orthogonalization process:
+
+\textbf{Step 1:} First vector remains unchanged:
+$\vec{u}_1 = \vec{v}_1 = \begin{pmatrix}1.000000 \\ 0.000000 \\ 1.000000\end{pmatrix}$
+
+\textbf{Step 2:}
+Compute projections of $\vec{v}_{2}$ onto previous orthogonal vectors:
+Projection onto $\vec{u}_{1}$: (0.500000, 0.000000, 0.500000)
+$\vec{u}_{2} = \begin{pmatrix}0.500000 \\ 1.000000 \\ -0.500000\end{pmatrix}$
+
+\textbf{Step 3:}
+Compute projections of $\vec{v}_{3}$ onto previous orthogonal vectors:
+Projection onto $\vec{u}_{1}$: (0.500000, 0.000000, 0.500000)
+Projection onto $\vec{u}_{2}$: (0.200000, 0.400000, -0.200000)
+$\vec{u}_{3} = \begin{pmatrix}-0.700000 \\ 0.600000 \\ 0.700000\end{pmatrix}$
+
+\textbf{Orthogonalization result:}
+$\vec{u}_{1} = \begin{pmatrix}1.000000 \\ 0.000000 \\ 1.000000\end{pmatrix}$
+$\vec{u}_{2} = \begin{pmatrix}0.500000 \\ 1.000000 \\ -0.500000\end{pmatrix}$
+$\vec{u}_{3} = \begin{pmatrix}-0.700000 \\ 0.600000 \\ 0.700000\end{pmatrix}$
+
+\newpage
+
+\end{document}
