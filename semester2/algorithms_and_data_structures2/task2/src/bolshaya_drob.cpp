@@ -109,29 +109,40 @@ bolshaya_drob& bolshaya_drob::operator+=(
     return *this;
 }
 
-bolshaya_drob operator+(bolshaya_drob const& first, bolshaya_drob const& second) {
-    bolshaya_drob temp = first;
-    return temp += second;
+bolshaya_drob bolshaya_drob::operator+(
+    bolshaya_drob const& other) 
+{
+    bolshaya_drob temp = *this;
+    
+    return temp += other;
 }
 
-bolshaya_drob& bolshaya_drob::operator-=(bolshaya_drob const& other)& {
+bolshaya_drob& bolshaya_drob::operator-=(
+    bolshaya_drob const& other)& 
+{
     return *this += -other;
 }
 
-bolshaya_drob operator-(bolshaya_drob const& first, bolshaya_drob const& second) {
-    return first + -second;
+bolshaya_drob bolshaya_drob::operator-(
+    bolshaya_drob const& other)
+{
+    return *this + -other;
 }
 
-bolshaya_drob& bolshaya_drob::operator*=(bolshaya_drob const& other)& {
+bolshaya_drob& bolshaya_drob::operator*=(
+    bolshaya_drob const& other)& 
+{
     _numerator *= other._numerator;
     _denominator *= other._denominator;
     simplify();
     return *this;
 }
 
-bolshaya_drob operator*(bolshaya_drob const& first, bolshaya_drob const& second) {
-    bolshaya_drob temp = first;
-    return temp *= second;
+bolshaya_drob bolshaya_drob::operator*(
+    bolshaya_drob const& other)
+{
+    bolshaya_drob temp = *this;
+    return temp *= other;
 }
 
 bolshaya_drob& bolshaya_drob::operator/=(
@@ -149,11 +160,12 @@ bolshaya_drob& bolshaya_drob::operator/=(
     return *this;
 }
 
-bolshaya_drob operator/(bolshaya_drob const& first, bolshaya_drob const& second) 
+bolshaya_drob bolshaya_drob::operator/(
+    bolshaya_drob const& other)
 {
-    bolshaya_drob temp = first;
+    bolshaya_drob temp = *this;
     
-    return temp /= second;
+    return temp /= other;
 }
 
 bolshaya_drob bolshaya_drob::abs() const 
@@ -181,7 +193,7 @@ bolshaya_drob bolshaya_drob::truncate() const
     return { _numerator / _denominator, 1 }; 
 }
 
-static boost::multiprecision::int1024_t gcd(
+boost::multiprecision::int1024_t bolshaya_drob::gcd(
     boost::multiprecision::int1024_t a,
     boost::multiprecision::int1024_t b)
 {
@@ -231,7 +243,7 @@ bolshaya_drob pow(
     
     if (exp < 0) 
     {
-        return 1 / pow(base, -exp);
+        return bolshaya_drob(1) / pow(base, -exp);
     }
     
     bolshaya_drob result = 1;
@@ -292,7 +304,7 @@ bolshaya_drob radical(
             x_to_power *= x;
         }
 
-        x = ((index - 1) * x + radicand / x_to_power) / index;
+        x = (bolshaya_drob(index - 1) * x + const_cast<bolshaya_drob&>(radicand) / x_to_power) / index;
 
         delta = (x - x_prev).abs();
     } 
@@ -431,7 +443,7 @@ bolshaya_drob log_taylor_series(
     const bolshaya_drob& x,
     const bolshaya_drob& EPS) 
 {
-    bolshaya_drob w = (x - bolshaya_drob(1)) / (x + bolshaya_drob(1));
+    bolshaya_drob w = (const_cast<bolshaya_drob&>(x) - bolshaya_drob(1)) / (const_cast<bolshaya_drob&>(x) + bolshaya_drob(1));
     bolshaya_drob w_squared = w * w;
     bolshaya_drob term = w;
     bolshaya_drob result = w;
@@ -577,15 +589,15 @@ bolshaya_drob bolshaya_drob::PI(
     static const bolshaya_drob one_239(1, 239);
 
     auto future_arctg_1_5 = std::async(
-        std::launch::async, [&]() { return arctg(one_fifth, EPS / 16); });
+        std::launch::async, [&]() { return arctg(one_fifth, const_cast<bolshaya_drob&>(EPS) / 16); });
     
     auto future_arctg_1_239 =
-        std::async(std::launch::async, [&]() { return arctg(one_239, EPS / 4); });
+        std::async(std::launch::async, [&]() { return arctg(one_239, const_cast<bolshaya_drob&>(EPS) / 4); });
 
     const bolshaya_drob arctg_1_5 = future_arctg_1_5.get();
     const bolshaya_drob arctg_1_239 = future_arctg_1_239.get();
 
-    bolshaya_drob pi = 16 * arctg_1_5 - 4 * arctg_1_239;
+    bolshaya_drob pi = bolshaya_drob(16) * arctg_1_5 - bolshaya_drob(4) * arctg_1_239;
     _pi_cache[EPS] = pi;
    
     return pi;
@@ -600,9 +612,9 @@ bolshaya_drob bolshaya_drob::reduce_argument(
 
     if (reduced_x > reducing_threshold) 
     {
-        bolshaya_drob const two_pi = bolshaya_drob::PI(EPS * 2) * 2;
-        bolshaya_drob k = (number / two_pi).truncate();
-        reduced_x = number - (k * two_pi);
+        bolshaya_drob const two_pi = bolshaya_drob::PI(const_cast<bolshaya_drob&>(EPS) * 2) * 2;
+        bolshaya_drob k = (const_cast<bolshaya_drob&>(number) / two_pi).truncate();
+        reduced_x = const_cast<bolshaya_drob&>(number) - (k * two_pi);
 
         if (reduced_x > two_pi) 
         {
@@ -713,7 +725,7 @@ bolshaya_drob tg(
     for (; n <= 1000; ++n)
     {
         const bolshaya_drob& B = bolshaya_drob::Bernoulli_number(2 * n);
-        bolshaya_drob coef = B * pow_neg4_n * (bolshaya_drob(1) - pow_4_n);
+        bolshaya_drob coef = const_cast<bolshaya_drob&>(B) * pow_neg4_n * (bolshaya_drob(1) - pow_4_n);
 
         factorial *= (2 * static_cast<int>(n) - 1) * (2 * static_cast<int>(n));
 
@@ -771,12 +783,12 @@ bolshaya_drob arcsin(
         const bolshaya_drob half_pi = bolshaya_drob::PI(EPS) / 2;
         bolshaya_drob sign = (number > 0) ? 1 : -1;
         
-        return sign * (half_pi - sqrt(arcsin((1 - number * number), EPS), EPS));
+        return sign * (const_cast<bolshaya_drob&>(half_pi) - sqrt(arcsin((bolshaya_drob(1) - const_cast<bolshaya_drob&>(number) * const_cast<bolshaya_drob&>(number)), EPS), EPS));
     }
 
     bolshaya_drob term = number;
     bolshaya_drob result = term;
-    bolshaya_drob number_squared = number * number;
+    bolshaya_drob number_squared = const_cast<bolshaya_drob&>(number) * const_cast<bolshaya_drob&>(number);
     boost::multiprecision::int1024_t n = 1;
 
     do 
@@ -823,7 +835,7 @@ bolshaya_drob arcctg(
     do 
     {
         term *= x_squared_inv;
-        result += sign * term / (2 * n + 1);
+        result += term * sign / (2 * n + 1);
         sign = -sign;
         n++;
     } 
@@ -842,7 +854,7 @@ bolshaya_drob arctg(
     {
         const bolshaya_drob half_pi = bolshaya_drob::PI(EPS) / 2;
        
-        return (reduced_x > 0) ? half_pi - arctg(reduced_x.reciprocal(), EPS)
+        return (reduced_x > 0) ? const_cast<bolshaya_drob&>(half_pi) - arctg(reduced_x.reciprocal(), EPS)
             : -half_pi - arctg(reduced_x.reciprocal(), EPS);
     }
     if (reduced_x == 1)
@@ -859,7 +871,7 @@ bolshaya_drob arctg(
     do 
     {
         term *= number_squared;
-        result += sign * term / (2 * n + 1);
+        result += term * sign / (2 * n + 1);
         sign = -sign;
         n++;
     } 

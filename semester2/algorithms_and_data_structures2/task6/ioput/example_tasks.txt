@@ -1,0 +1,14 @@
+# Example input file for a linear algebra solver
+# Format: TASK_TYPE data_separated_by_spaces_and_commas
+
+# Scalar Product of Vectors in n-dimensional Space
+SCALAR_DOUBLE_PRODUCT_ND 1 2 3 4; 5 6 7 8
+
+# Cross Product in 3D Space
+VECTOR_DOUBLE_PRODUCT_3D 1 2 3; 4 5 6
+
+# Vector Magnitude
+VECTOR_MODULUS 3 4 0
+
+# Gram-Schmidt Orthogonalization Process
+ORTHOGONALIZATION_OF_VECTORS_SET 1 0 1; 1 1 0; 0 1 1
