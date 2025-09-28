@@ -24,7 +24,7 @@ int validate_arguments(
 {
     if (argc != 3) 
     {
-        printf("Usage: %s <source_file> <destination_file>\n", argv[0]);
+        printf("Usage: %s <source_file> <destination_file>\n", argv[0]); 
         
         return STATUS_INVALID_ARGS;
     }
@@ -36,7 +36,7 @@ int validate_arguments(
         return STATUS_EMPTY_FILENAME;
     }
 
-    if (strcmp(argv[1], argv[2]) == 0) 
+    if (strcmp(argv[1], argv[2]) == 0) // TODO: compare strings by abs paths =)
     {
         fprintf(stderr, "Error: Source and destination files cannot be the same\n");
         
