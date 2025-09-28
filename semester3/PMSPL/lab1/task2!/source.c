@@ -394,7 +394,7 @@ StatusCode parse_datetime(
     return STATUS_SUCCESS;
 }
 
-StatusCode cmd_howmuch(
+StatusCode cmd_howmuch(                    // TODO: fix it X_X
     char const* flag, 
     char const* datetime_str) 
 {
