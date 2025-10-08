@@ -29,6 +29,8 @@ int main()
         read_bytes = read(fd[0], buf, BUFSIZ - 1);
         if (read_bytes == -1)
         {
+            perror("read");
+
             exit(EXIT_FAILURE);
         }
 
@@ -44,6 +46,8 @@ int main()
         written_bytes = write(fd[1], message, (strlen(message) + 1) * sizeof(char));
         if (written_bytes == -1)
         {
+            perror("write");
+
             exit(EXIT_FAILURE);
         }
 
