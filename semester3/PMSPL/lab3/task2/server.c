@@ -35,7 +35,7 @@ int main()
         perror("open FIFO on server");
 
         unlink(FIFO_NAME);
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
     printf("SERVER: FIFO opened.\n");
