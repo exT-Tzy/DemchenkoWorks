@@ -39,3 +39,5 @@ compile_commands.json
 .gdb_history
 
 /.venv/
+
+.vscode
