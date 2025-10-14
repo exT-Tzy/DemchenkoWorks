@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <time.h>
 
 #define MAX_MESSAGE_LENGTH 100
 #define FIFO_NAME "fifo"
@@ -14,9 +15,11 @@ void generate_random_string(
     char * buf,
     size_t max_length)
 {
-    size_t rand_length = 1 + (rand() % (MAX_MESSAGE_LENGTH - 1));
+    size_t rand_length;
     char const charset[CHARSET_LENGTH] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     int i;
+
+    rand_length = 1 + (rand() % (MAX_MESSAGE_LENGTH - 1));
 
     for (i = 0; i < rand_length; ++i)
     {
@@ -40,6 +43,8 @@ int main()
         return EXIT_FAILURE;
     }
 
+    srand(time(NULL));
+
     while (1)
     {
         generate_random_string(buf, MAX_MESSAGE_LENGTH);
@@ -60,6 +65,8 @@ int main()
                 break;
             }
         }
+
+        usleep(100000);
     }
         
     close(fd);

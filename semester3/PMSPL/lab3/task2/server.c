@@ -63,7 +63,6 @@ int main()
         }
     }
 
-
     close(fd);
     unlink(FIFO_NAME);
     return EXIT_SUCCESS;
