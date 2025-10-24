@@ -979,7 +979,15 @@ int print_error(
     //}
     //return SUCCESS;
 
-    char const* errors_arr[8] = { "Error: undefined... 0_o\n", "Error: Memory allocation failed.\n", "Error: Invalid set name. Use A-Z.\n", "Error: Set not found.\n", "Error: Set already exists.\n", "Error: Invalid command.\n", "Error: Element not found.\n", "Error: Set is empty.\n" };
+    char const* errors_arr[8] = { 
+        "Error: undefined... 0_o\n", 
+        "Error: Memory allocation failed.\n", 
+        "Error: Invalid set name. Use A-Z.\n", 
+        "Error: Set not found.\n", 
+        "Error: Set already exists.\n", 
+        "Error: Invalid command.\n", 
+        "Error: Element not found.\n", 
+        "Error: Set is empty.\n" };
 
     if (status > 0 && status < 8)
     {
