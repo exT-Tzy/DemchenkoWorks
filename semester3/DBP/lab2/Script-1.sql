@@ -425,6 +425,7 @@ $$ language plpgsql;
 -- task 8
 
 
+create view issued_books as
 select reader_first_name, 
 	   reader_last_name, 
 	   author_first_name, 
@@ -448,6 +449,7 @@ order by issuance_datetime desc;
 -- task 9
 
 
+create view overdue_books as
 select reader_first_name,
 	   reader_last_name,
 	   author_first_name,
@@ -498,25 +500,7 @@ begin
 	end if;
 
 	if exists(
-		select 1 from(
-			select reader_first_name,
-	   			   reader_last_name,
-				   author_first_name,
-				   author_last_name,
-				   book_title,
-	  			   (CURRENT_DATE - expected_refund_date) as overdue_days
-			from public.issuance i
-			inner join public.reader r
-				on i.reader_card_id = r.reader_card_id
-			inner join public.book_instance bi 
-				on i.book_inventory_id = bi.book_inventory_id 
-			inner join public.book b 
-				on bi.book_id = b.book_id 
-			inner join public.author a 
-				on b.author_id = a.author_id 
-			where i.actual_refund_date is null
-				and i.expected_refund_date < CURRENT_DATE
-			order by overdue_days desc)
+		select 1 from overdue_books
 		where reader_card_id = param_reader_id)
 	then
 		raise exception 'gde kniga lebovski???';
@@ -566,7 +550,7 @@ begin
 	values (param_reader_id,
 			param_book_id,
 			param_min_state,
-			CURRENT_TIMESTAMP + interval '3 dayes');
+			CURRENT_TIMESTAMP + interval '3 days');
 end;
 $$ language plpgsql;
 
@@ -614,25 +598,7 @@ begin
 	end if;
 
 	if exists(
-		select 1 from(
-			select reader_first_name,
-	   			   reader_last_name,
-				   author_first_name,
-				   author_last_name,
-				   book_title,
-	  			   (CURRENT_DATE - expected_refund_date) as overdue_days
-			from public.issuance i
-			inner join public.reader r
-				on i.reader_card_id = r.reader_card_id
-			inner join public.book_instance bi 
-				on i.book_inventory_id = bi.book_inventory_id 
-			inner join public.book b 
-				on bi.book_id = b.book_id 
-			inner join public.author a 
-				on b.author_id = a.author_id 
-			where i.actual_refund_date is null
-				and i.expected_refund_date < CURRENT_DATE
-			order by overdue_days desc)
+		select 1 from overdue_books
 		where reader_card_id = param_reader_id)
 	then
 		raise exception 'gde kniga lebovski???';
@@ -693,6 +659,7 @@ select * from get_book_locations(1);
 -- task 15
 
 
+create view books_not_issued_or_reserved as
 select 
     bi.book_id,
     bi.book_state,
@@ -705,6 +672,7 @@ group by bi.book_id, bi.book_state;
 -- task 16
 
 
+create view books_not_returned_for_more_than_a_year as
 select
     bi.book_inventory_id
 from public.issuance i
