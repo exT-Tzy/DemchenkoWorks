@@ -32,6 +32,8 @@
 *.out
 *.app
 
+build/
+build_release/
 /build_release/
 /build/
 /target/
