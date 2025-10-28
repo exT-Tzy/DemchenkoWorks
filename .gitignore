@@ -32,6 +32,8 @@
 *.out
 *.app
 
+CMakeLists.txt
+
 build/
 build_release/
 /build_release/
