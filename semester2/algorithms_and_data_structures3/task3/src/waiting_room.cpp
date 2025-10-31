@@ -1,10 +1,17 @@
 #include "../include/waiting_room.h"
+
 #include <sstream>
 
-waiting_room::waiting_room(int capacity, logger *logger_patients, logger *logger_queue)
-    : _capacity(capacity), _room_empty(true), _logger_patients(logger_patients),
-      _logger_queue(logger_queue), _last_infection_check_time(0),
-      _infection_check_interval(100) // Проверка каждые 100 единиц времени
+waiting_room::waiting_room(
+    int capacity,
+    logger *logger_patients,
+    logger *logger_queue)
+    : _capacity(capacity),
+      _room_empty(true),
+      _logger_patients(logger_patients),
+      _logger_queue(logger_queue),
+      _last_infection_check_time(0),
+      _infection_check_interval(100)
 {
 }
 
@@ -12,23 +19,23 @@ waiting_room::~waiting_room()
 {
 }
 
-bool waiting_room::try_enter(patient *p, int current_time)
+bool waiting_room::try_enter(
+    patient *p,
+    int current_time)
 {
-    // Если приемная заполнена - сразу в очередь
     if (_patients_inside.size() >= static_cast<size_t>(_capacity))
     {
         _waiting_queue.push(p);
 
         std::ostringstream msg;
-        msg << "[Time " << current_time << "] Patient " << p->get_id() << " (";
-        msg << (p->get_state() == patient_state::healthy ? "HEALTHY" : "SICK");
-        msg << ") joined the queue (room is full). Queue size: " << _waiting_queue.size();
+        msg << "[time " << current_time << "] patient " << p->get_id() << " (";
+        msg << (p->get_state() == patient_state::healthy ? "healthy" : "sick");
+        msg << ") joined the queue (room is full). queue size: " << _waiting_queue.size();
         _logger_queue->information(msg.str());
 
         return false;
     }
 
-    // Если приемная пустая - входим и устанавливаем состояние
     if (_room_empty)
     {
         _patients_inside.push_back(p);
@@ -36,50 +43,47 @@ bool waiting_room::try_enter(patient *p, int current_time)
         _room_empty = false;
 
         std::ostringstream msg;
-        msg << "[Time " << current_time << "] Patient " << p->get_id() << " (";
-        msg << (p->get_state() == patient_state::healthy ? "HEALTHY" : "SICK");
-        msg << ") entered waiting room (first patient). Room now has " << _patients_inside.size()
+        msg << "[time " << current_time << "] patient " << p->get_id() << " (";
+        msg << (p->get_state() == patient_state::healthy ? "healthy" : "sick");
+        msg << ") entered waiting room (first patient). room now has " << _patients_inside.size()
             << "/" << _capacity << " patients";
         _logger_patients->information(msg.str());
 
         return true;
     }
 
-    // Если состояние совпадает - входим
     if (_current_room_state == p->get_state())
     {
         _patients_inside.push_back(p);
 
         std::ostringstream msg;
-        msg << "[Time " << current_time << "] Patient " << p->get_id() << " (";
-        msg << (p->get_state() == patient_state::healthy ? "HEALTHY" : "SICK");
-        msg << ") entered waiting room. Room now has " << _patients_inside.size()
+        msg << "[time " << current_time << "] patient " << p->get_id() << " (";
+        msg << (p->get_state() == patient_state::healthy ? "healthy" : "sick");
+        msg << ") entered waiting room. room now has " << _patients_inside.size()
             << "/" << _capacity << " patients";
         _logger_patients->information(msg.str());
 
         return true;
     }
 
-    // Состояние не совпадает - в очередь
     _waiting_queue.push(p);
 
     std::ostringstream msg;
-    msg << "[Time " << current_time << "] Patient " << p->get_id() << " (";
-    msg << (p->get_state() == patient_state::healthy ? "HEALTHY" : "SICK");
-    msg << ") joined the queue (incompatible state with room). Queue size: " << _waiting_queue.size();
+    msg << "[time " << current_time << "] patient " << p->get_id() << " (";
+    msg << (p->get_state() == patient_state::healthy ? "healthy" : "sick");
+    msg << ") joined the queue. queue size: " << _waiting_queue.size();
     _logger_queue->information(msg.str());
 
     return false;
 }
 
-void waiting_room::process_queue(int current_time)
+void waiting_room::process_queue(
+    int current_time)
 {
-    // Пытаемся переместить пациентов из очереди в приемную
     while (!_waiting_queue.empty() && _patients_inside.size() < static_cast<size_t>(_capacity))
     {
         patient *p = _waiting_queue.front();
 
-        // Если приемная пустая или состояние совпадает - переводим
         if (_room_empty || _current_room_state == p->get_state())
         {
             _waiting_queue.pop();
@@ -92,28 +96,27 @@ void waiting_room::process_queue(int current_time)
             }
 
             std::ostringstream msg;
-            msg << "[Time " << current_time << "] Patient " << p->get_id() << " (";
-            msg << (p->get_state() == patient_state::healthy ? "HEALTHY" : "SICK");
-            msg << ") moved from queue to waiting room. Room: " << _patients_inside.size()
-                << "/" << _capacity << ", Queue: " << _waiting_queue.size();
+            msg << "[time " << current_time << "] patient " << p->get_id() << " (";
+            msg << (p->get_state() == patient_state::healthy ? "healthy" : "sick");
+            msg << ") moved from queue to waiting room. room: " << _patients_inside.size()
+                << "/" << _capacity << ", queue: " << _waiting_queue.size();
             _logger_queue->information(msg.str());
         }
         else
         {
-            // Состояние не совпадает - останавливаемся
             break;
         }
     }
 }
 
-patient *waiting_room::get_next_patient(int current_time)
+patient *waiting_room::get_next_patient(
+    int current_time)
 {
     if (_patients_inside.empty())
     {
         return nullptr;
     }
 
-    // Находим пациента, который пришел раньше всех
     patient *earliest = _patients_inside[0];
     size_t earliest_index = 0;
 
@@ -129,25 +132,25 @@ patient *waiting_room::get_next_patient(int current_time)
     _patients_inside.erase(_patients_inside.begin() + earliest_index);
 
     std::ostringstream msg;
-    msg << "[Time " << current_time << "] Patient " << earliest->get_id()
-        << " taken from waiting room for service. Room now has " << _patients_inside.size()
+    msg << "[time " << current_time << "] patient " << earliest->get_id()
+        << " taken from waiting room for service. room now has " << _patients_inside.size()
         << " patients";
     _logger_patients->information(msg.str());
 
-    // Если приемная опустела
     if (_patients_inside.empty())
     {
         _room_empty = true;
 
         std::ostringstream msg2;
-        msg2 << "[Time " << current_time << "] Waiting room is now EMPTY - state can change";
+        msg2 << "[Time " << current_time << "] waiting room is now EMPTY.";
         _logger_patients->information(msg2.str());
     }
 
     return earliest;
 }
 
-void waiting_room::check_queue_infection(int current_time)
+void waiting_room::check_queue_infection(
+    int current_time)
 {
     if (current_time - _last_infection_check_time < _infection_check_interval)
     {
@@ -158,13 +161,12 @@ void waiting_room::check_queue_infection(int current_time)
 
     if (_waiting_queue.size() <= 1)
     {
-        return; // Нечего заражать
+        return;
     }
 
     bool has_sick = false;
     int healthy_count = 0;
 
-    // Подсчитываем больных и здоровых
     std::queue<patient *> temp_queue = _waiting_queue;
     while (!temp_queue.empty())
     {
@@ -181,7 +183,6 @@ void waiting_room::check_queue_infection(int current_time)
         }
     }
 
-    // Если есть больной и есть здоровые - заражаем всех здоровых
     if (has_sick && healthy_count > 0)
     {
         std::queue<patient *> new_queue;
@@ -198,7 +199,7 @@ void waiting_room::check_queue_infection(int current_time)
                 infected_count++;
 
                 std::ostringstream msg;
-                msg << "[Time " << current_time << "] QUEUE INFECTION: Patient "
+                msg << "[time " << current_time << "] QUEUE INFECTION: patient "
                     << p->get_id() << " got infected while waiting in queue";
                 _logger_queue->warning(msg.str());
             }
@@ -211,8 +212,8 @@ void waiting_room::check_queue_infection(int current_time)
         if (infected_count > 0)
         {
             std::ostringstream msg;
-            msg << "[Time " << current_time << "] *** QUEUE INFECTION EVENT ***: "
-                << infected_count << " patients got infected in the queue! Total in queue: "
+            msg << "[Time " << current_time << "] *** QUEUE INFECTION ***: "
+                << infected_count << " patients got infected in the queue! total in queue: "
                 << _waiting_queue.size();
             _logger_queue->warning(msg.str());
         }
