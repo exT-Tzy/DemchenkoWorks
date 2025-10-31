@@ -1,10 +1,9 @@
-#include "client_logger.h"
+#include "../include/client_logger.h"
 
 #include <fstream>
 #include <set>
 #include <chrono>
-
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 std::map<std::string, std::pair<std::ostream*, size_t>> client_logger::_all_streams = std::map<std::string, std::pair<std::ostream*, size_t>>();
 
