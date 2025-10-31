@@ -1,42 +1,42 @@
-#include "logger.h"
+#include "../include/logger.h"
 
 #include <iomanip>
 #include <sstream>
 #include <format>
 #include <chrono>
 
-logger const* logger::trace(
-    std::string const& message) const noexcept
+logger const *logger::trace(
+    std::string const &message) const noexcept
 {
     return log(message, logger::severity::trace);
 }
 
-logger const* logger::debug(
-    std::string const& message) const noexcept
+logger const *logger::debug(
+    std::string const &message) const noexcept
 {
     return log(message, logger::severity::debug);
 }
 
-logger const* logger::information(
-    std::string const& message) const noexcept
+logger const *logger::information(
+    std::string const &message) const noexcept
 {
     return log(message, logger::severity::information);
 }
 
-logger const* logger::warning(
-    std::string const& message) const noexcept
+logger const *logger::warning(
+    std::string const &message) const noexcept
 {
     return log(message, logger::severity::warning);
 }
 
-logger const* logger::error(
-    std::string const& message) const noexcept
+logger const *logger::error(
+    std::string const &message) const noexcept
 {
     return log(message, logger::severity::error);
 }
 
-logger const* logger::critical(
-    std::string const& message) const noexcept
+logger const *logger::critical(
+    std::string const &message) const noexcept
 {
     return log(message, logger::severity::critical);
 }
@@ -64,13 +64,23 @@ std::string logger::severity_to_string(
 }
 
 std::string logger::get_date(
-    const std::chrono::system_clock::time_point& time_point)
+    const std::chrono::system_clock::time_point &time_point)
 {
-    return std::format("{:%Y-%m-%d}", std::chrono::zoned_time(std::chrono::current_zone(), time_point));
+    auto time_t = std::chrono::system_clock::to_time_t(time_point);
+    auto local_time = std::localtime(&time_t);
+
+    std::ostringstream oss;
+    oss << std::put_time(local_time, "%Y-%m-%d");
+    return oss.str();
 }
 
 std::string logger::get_time(
-    const std::chrono::system_clock::time_point& time_point)
+    const std::chrono::system_clock::time_point &time_point)
 {
-    return std::format("{:%H:%M:%S}", std::chrono::zoned_time(std::chrono::current_zone(), time_point));
+    auto time_t = std::chrono::system_clock::to_time_t(time_point);
+    auto local_time = std::localtime(&time_t);
+
+    std::ostringstream oss;
+    oss << std::put_time(local_time, "%H:%M:%S");
+    return oss.str();
 }
